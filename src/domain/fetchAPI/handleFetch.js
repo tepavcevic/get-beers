@@ -3,13 +3,13 @@ const handleFetch = (currentPage) => {
 
   return {
     fetchRandomBeer: async (currentPage) => {
-      if (typeof currentPage !== "number") {
+      if (typeof currentPage !== 'number') {
         currentPage = 1;
       }
 
       try {
         const response = await fetch(
-          `https://api.punkapi.com/v2/beers?page=${currentPage}&per_page=${beersPerPage}`
+          `https://api.punkapi.com/v2/beers?page=${currentPage}&per_page=${beersPerPage}`,
         );
 
         if (!response.ok) {
