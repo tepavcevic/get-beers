@@ -5,17 +5,21 @@ import genericBottle from '../../assets/generic-bottle.png';
 
 export default function BeerInfo() {
   const [beer, setBeer] = useState(null);
-  const params = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchBeer = async () => {
-      const response = await fetch(`https://api.punkapi.com/v2/beers/${params.id}`);
-      const result = await response.json();
-      setBeer(result);
+      try {
+        const response = await fetch(`https://api.punkapi.com/v2/beers/${id}`);
+        const result = await response.json();
+        setBeer(result);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     fetchBeer();
-  }, []);
+  }, [id]);
 
   return (
     <>

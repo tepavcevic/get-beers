@@ -1,34 +1,57 @@
-import { useState } from 'react';
-import ReactPaginate from 'react-paginate';
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 
-import handleFetch from '../../domain/fetchAPI/handleFetch';
+import firstFetch from '../../domain/fetchAPI/firstFetch';
 import genericBottle from '../../assets/generic-bottle.png';
-import { Link } from 'react-router-dom';
 
 export default function Home() {
   const [beers, setBeers] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const numOfPages = 17;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const params = Object.fromEntries([...searchParams]);
 
-  const handleFetchedData = handleFetch();
+  useEffect(() => {
+    const params = Object.fromEntries([...searchParams]);
 
-  const handleData = async (currentPage) => {
-    setIsLoading(true);
-    const data = await handleFetchedData.fetchRandomBeer(currentPage);
-    setBeers(data);
-    setIsLoading(false);
-  };
+    const fetchFromParams = async (pageNum, perPage) => {
+      if (!pageNum) {
+        try {
+          const response = await firstFetch();
 
-  const handlePageChange = (selectedObject) => {
-    handleData(selectedObject.selected + 1);
-  };
+          if (!response.ok) {
+            throw new Error(`Error ${response.status}`);
+          }
+
+          const result = await response.json();
+          setBeers(result);
+          setSearchParams('?page=1&per_page=20');
+        } catch (error) {
+          alert(error.message);
+          console.error(error);
+        }
+      } else {
+        try {
+          const response = await fetch(
+            `https://api.punkapi.com/v2/beers?page=${Number(pageNum)}&per_page=${Number(perPage)}`,
+          );
+
+          if (!response.ok) {
+            throw new Error(`Error ${response.status}`);
+          }
+
+          const result = await response.json();
+          setBeers(result);
+        } catch (error) {
+          alert(error.message);
+          console.error(error);
+        }
+      }
+    };
+
+    fetchFromParams(params.page, params.per_page);
+  }, [searchParams]);
 
   return (
     <>
-      <button onClick={handleData} disabled={isLoading}>
-        Get some beer
-      </button>
-
       <br />
 
       {beers !== null &&
@@ -58,19 +81,13 @@ export default function Home() {
           </div>
         ))}
 
-      <ReactPaginate
-        pageCount={numOfPages}
-        pageRangeDisplayed={2}
-        marginPagesDisplayed={2}
-        onPageChange={handlePageChange}
-        containerClassName={'container'}
-        previousLinkClassName={'page'}
-        breakClassName={'page'}
-        nextLinkClassName={'page'}
-        pageClassName={'page'}
-        disabledClassNae={'disabled'}
-        activeClassName={'active'}
-      />
+      <Link to={`?page=1&per_page=20`}>First</Link>
+      <br />
+      <Link to={`?page=${Number(params.page) - 1}&per_page=20`}>Previous</Link>
+      <br />
+      <Link to={`?page=${Number(params.page) + 1}&per_page=20`}>Next</Link>
+      <br />
+      <Link to={`?page=17&per_page=20`}>Last</Link>
     </>
   );
 }
