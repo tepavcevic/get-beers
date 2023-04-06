@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 
-import { BREWDOG_API } from '../../constants/apiUrl';
-import { NUM_OF_ITEMS } from '../../constants/apiNumOfItems';
+import { BREWDOG_API } from '../../constants/constants';
+import { NUM_OF_ITEMS } from '../../constants/constants';
 import fetchFromParams from '../../domain/fetchAPI/fetchFromParams';
 import genericBottle from '../../assets/generic-bottle.png';
 
@@ -27,12 +27,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const fetchBeers = async () => {
-      const data = await fetchFromParams(BREWDOG_API, queryParamOptions(params));
-      setBeers(data);
-    };
-
-    fetchBeers();
+    fetchFromParams(BREWDOG_API, queryParamOptions(params)).then(setBeers);
   }, [searchParams]);
 
   return (

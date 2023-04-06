@@ -11,6 +11,7 @@ const fetchFromParams = async (url, options) => {
   } catch (error) {
     alert(error.message);
     console.error(error);
+    throw error;
   }
 };
 
