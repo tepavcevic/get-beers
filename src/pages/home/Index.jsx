@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 
-import { BREWDOG_API } from '../../constants/constants';
-import { NUM_OF_ITEMS } from '../../constants/constants';
+import { BREWDOG_API, NUM_OF_ITEMS } from '../../constants/constants';
 import fetchFromParams from '../../domain/fetchAPI/fetchFromParams';
 import genericBottle from '../../assets/generic-bottle.png';
 
