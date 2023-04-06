@@ -1,53 +1,38 @@
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
 
-import firstFetch from '../../domain/fetchAPI/firstFetch';
+import { BREWDOG_API } from '../../constants/apiUrl';
+import { NUM_OF_ITEMS } from '../../constants/apiNumOfItems';
+import fetchFromParams from '../../domain/fetchAPI/fetchFromParams';
 import genericBottle from '../../assets/generic-bottle.png';
 
 export default function Home() {
   const [beers, setBeers] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
-  const params = Object.fromEntries([...searchParams]);
+  const params = {
+    page: searchParams.get('page') || 1,
+    perPage: searchParams.get('per_page') || 20,
+  };
+
+  const handlePageChange = (selectedObject) => {
+    setSearchParams({
+      ...params,
+      page: selectedObject.selected + 1,
+    });
+  };
+
+  const queryParamOptions = (params) => {
+    return `?page=${params.page}&per_page=${params.perPage}`;
+  };
 
   useEffect(() => {
-    const params = Object.fromEntries([...searchParams]);
-
-    const fetchFromParams = async (pageNum, perPage) => {
-      if (!pageNum) {
-        try {
-          const response = await firstFetch();
-
-          if (!response.ok) {
-            throw new Error(`Error ${response.status}`);
-          }
-
-          const result = await response.json();
-          setBeers(result);
-          setSearchParams('?page=1&per_page=20');
-        } catch (error) {
-          alert(error.message);
-          console.error(error);
-        }
-      } else {
-        try {
-          const response = await fetch(
-            `https://api.punkapi.com/v2/beers?page=${Number(pageNum)}&per_page=${Number(perPage)}`,
-          );
-
-          if (!response.ok) {
-            throw new Error(`Error ${response.status}`);
-          }
-
-          const result = await response.json();
-          setBeers(result);
-        } catch (error) {
-          alert(error.message);
-          console.error(error);
-        }
-      }
+    const fetchBeers = async () => {
+      const data = await fetchFromParams(BREWDOG_API, queryParamOptions(params));
+      setBeers(data);
     };
 
-    fetchFromParams(params.page, params.per_page);
+    fetchBeers();
   }, [searchParams]);
 
   return (
@@ -81,13 +66,19 @@ export default function Home() {
           </div>
         ))}
 
-      <Link to={`?page=1&per_page=20`}>First</Link>
-      <br />
-      <Link to={`?page=${Number(params.page) - 1}&per_page=20`}>Previous</Link>
-      <br />
-      <Link to={`?page=${Number(params.page) + 1}&per_page=20`}>Next</Link>
-      <br />
-      <Link to={`?page=17&per_page=20`}>Last</Link>
+      <ReactPaginate
+        pageCount={Math.ceil(NUM_OF_ITEMS / params.perPage)}
+        pageRangeDisplayed={2}
+        marginPagesDisplayed={2}
+        onPageChange={handlePageChange}
+        containerClassName={'container'}
+        previousLinkClassName={'page'}
+        breakClassName={'page'}
+        nextLinkClassName={'page'}
+        pageClassName={'page'}
+        disabledClassNae={'disabled'}
+        activeClassName={'active'}
+      />
     </>
   );
 }

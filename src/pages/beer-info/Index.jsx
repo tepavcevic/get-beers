@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import fetchFromParams from '../../domain/fetchAPI/fetchFromParams';
+import { BREWDOG_API } from '../../constants/apiUrl';
 import genericBottle from '../../assets/generic-bottle.png';
 
 export default function BeerInfo() {
@@ -9,13 +11,8 @@ export default function BeerInfo() {
 
   useEffect(() => {
     const fetchBeer = async () => {
-      try {
-        const response = await fetch(`https://api.punkapi.com/v2/beers/${id}`);
-        const result = await response.json();
-        setBeer(result);
-      } catch (error) {
-        console.error(error);
-      }
+      const data = await fetchFromParams(BREWDOG_API, `/${id}`);
+      setBeer(data);
     };
 
     fetchBeer();
