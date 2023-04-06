@@ -4,3 +4,57 @@
   padding: 2rem;
   text-align: center;
 }
+
+h3 {
+  width: fit-content;
+  padding-bottom: 10px;
+  border-bottom: 2px solid black;
+  margin: 10px auto;
+}
+
+img {
+  filter: drop-shadow(20px 15px 14px #bbbbbb);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+}
+
+.page {
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.active {
+  border: 2px solid #000;
+  font-weight: bold;
+}
+
+.previous {
+  padding: 10px;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.break {
+  padding: 10px;
+}
+
+.next {
+  padding: 10px;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+}
