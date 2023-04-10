@@ -11,7 +11,7 @@ export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
   const params = {
     page: searchParams.get('page') || 1,
-    perPage: searchParams.get('per_page') || 20,
+    perPage: searchParams.get('perPage') || 12,
   };
 
   const handlePageChange = (selectedObject) => {
@@ -31,34 +31,41 @@ export default function Home() {
 
   return (
     <>
-      <br />
+      <div className="cardGroup">
+        {beers !== null &&
+          beers.map((beer) => (
+            <div className="card" key={beer.id}>
+              <section className="imageSection">
+                {beer.image_url !== null ? (
+                  <img
+                    src={beer.image_url}
+                    className="cardImage"
+                    height="235px"
+                    max-width="117px"
+                    alt="beer image"
+                  />
+                ) : (
+                  <img
+                    src={genericBottle}
+                    className="cardImage"
+                    height="235px"
+                    max-width="auto"
+                    alt="beer image"
+                  />
+                )}
+              </section>
 
-      {beers !== null &&
-        beers.map((beer) => (
-          <div key={beer.id}>
-            <h4>{beer.id}</h4>
-            <h3>{beer.name.toUpperCase()}</h3>
-            <p>{beer.tagline.toUpperCase()}</p>
-            <i>
-              <small>{beer.brewers_tips}</small>
-            </i>
+              <div className="cardBody">
+                <h3 className="cardTitle">{beer.name}</h3>
+                <p className="cardTagline">{beer.tagline}</p>
 
-            <br />
-            <br />
-            <br />
-
-            {beer.image_url !== null ? (
-              <img src={beer.image_url} height="235px" width="auto" alt="beer image" />
-            ) : (
-              <img src={genericBottle} height="235px" width="auto" alt="beer image" />
-            )}
-            <br />
-            <Link to={`/${beer.id}`}>See beer details</Link>
-            <br />
-            <hr />
-            <br />
-          </div>
-        ))}
+                <Link to={`/${beer.id}`} className="textLink">
+                  <button className="btn cardBtn">Know more</button>
+                </Link>
+              </div>
+            </div>
+          ))}
+      </div>
 
       <ReactPaginate
         pageCount={Math.ceil(NUM_OF_ITEMS / params.perPage)}
