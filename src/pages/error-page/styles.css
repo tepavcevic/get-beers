@@ -1,0 +1,12 @@
+.btnGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.backBtn {
+  color: white;
+  background-color: #ff5140 !important;
+  border: thin solid #ff5140 !important;
+}

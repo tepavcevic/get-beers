@@ -1,0 +1,38 @@
+.beerInfoPage {
+  width: 600px;
+  padding: 30px 0 15px 15px;
+  margin: 0 auto;
+  border-radius: 5px;
+  box-shadow: 2px 3px 6px lightgrey;
+}
+
+.beerInfoHeader {
+  display: flex;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.beerImageSection {
+  display: flex;
+  align-items: baseline;
+  justify-content: left;
+  background: linear-gradient(90deg, #ffffff00 55px, #ff5140 0%);
+  height: 250px;
+  width: 40%;
+  align-self: center;
+}
+
+.beerInfo {
+  padding: 0 20px 0 0;
+  margin: 0 auto 0 auto;
+}
+
+.beerImage {
+  max-height: 300px;
+  overflow: visible;
+  align-self: center;
+}
+
+.beerDescription {
+  padding: 15px 15px 0 0;
+}

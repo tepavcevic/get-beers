@@ -3,15 +3,13 @@ const fetchFromParams = async (url, options) => {
     const response = await fetch(`${url}${options}`);
 
     if (!response.ok) {
-      throw new Error(`Error ${response.status}`);
+      throw new Error(response.status);
     }
 
     const result = await response.json();
     return result;
   } catch (error) {
-    alert(error.message);
-    console.error(error);
-    throw error;
+    throw error.message;
   }
 };
 

@@ -3,8 +3,9 @@ import { Link, useSearchParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 
 import { BREWDOG_API, NUM_OF_ITEMS } from '../../constants/constants';
-import fetchFromParams from '../../domain/fetchAPI/fetchFromParams';
+import fetchFromParams from '../../services/fetchFromParams';
 import genericBottle from '../../assets/generic-bottle.png';
+import './styles.css';
 
 export default function Home() {
   const [beers, setBeers] = useState(null);
@@ -37,13 +38,7 @@ export default function Home() {
             <div className="card" key={beer.id}>
               <section className="imageSection">
                 {beer.image_url !== null ? (
-                  <img
-                    src={beer.image_url}
-                    className="cardImage"
-                    height="235px"
-                    max-width="117px"
-                    alt="beer image"
-                  />
+                  <img src={beer.image_url} className="cardImage" alt="beer image" />
                 ) : (
                   <img
                     src={genericBottle}
@@ -56,8 +51,8 @@ export default function Home() {
               </section>
 
               <div className="cardBody">
-                <h3 className="cardTitle">{beer.name}</h3>
-                <p className="cardTagline">{beer.tagline}</p>
+                <h3 className="title">{beer.name}</h3>
+                <p className="tagline">{beer.tagline}</p>
 
                 <Link to={`/${beer.id}`} className="textLink">
                   <button className="btn cardBtn">Know more</button>
