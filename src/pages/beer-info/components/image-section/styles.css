@@ -1,0 +1,16 @@
+.beerImageSection {
+  display: flex;
+  align-items: baseline;
+  justify-content: left;
+  background: linear-gradient(90deg, #ffffff00 55px, #ff5140 0%);
+  height: 250px;
+  width: 30%;
+  align-self: center;
+}
+
+.beerImage {
+  max-height: 300px;
+  overflow: visible;
+  align-self: center;
+  filter: drop-shadow(-13px 13px 17px #2525256c);
+}

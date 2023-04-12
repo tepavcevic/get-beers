@@ -3,7 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import fetchFromParams from '../../services/fetchFromParams';
 import { BREWDOG_API } from '../../constants/constants';
-import genericBottle from '../../assets/generic-bottle.png';
+import ImageSection from './components/image-section/Index';
+import BeerProps from './components/beer-props/Index';
+import BeerIngredients from './components/beer-ingredients/Index';
+import og from '../../assets/og.svg';
+import hops from '../../assets/hops.svg';
+import malt from '../../assets/malt.svg';
+import yeast from '../../assets/yeast.svg';
+import abv from '../../assets/abv.svg';
+import ibu from '../../assets/ibu.svg';
 import './styles.css';
 
 export default function BeerInfo({ setErrorMessage }) {
@@ -31,52 +39,23 @@ export default function BeerInfo({ setErrorMessage }) {
 
           <div className="beerInfoHeader">
             <div className="beerInfo">
-              <p>
-                <b>ABV:</b>
-                {beer.abv}%
-              </p>
-              <p>
-                <b>OG:</b>
-                {beer.target_og}
-              </p>
-              <p>
-                <b>IBU's:</b>
-                {beer.ibu}
-              </p>
-
-              <button className="btn">See full recipe</button>
+              <h4>BEER SHEET</h4>
+              <BeerProps svg={abv} name="ABV" value={beer.abv} />
+              <BeerProps svg={og} name="OG" value={beer.target_og} />
+              <BeerProps svg={ibu} name="IBU's" value={beer.ibu} />
             </div>
-            <aside className="beerImageSection">
-              {beer.image_url !== null ? (
-                <img src={beer.image_url} className="beerImage" alt="beer image" />
-              ) : (
-                <img src={genericBottle} className="beerImage" alt="beer image" />
-              )}
-            </aside>
+            <ImageSection imageUrl={beer.image_url} />
           </div>
 
-          <div className="beerDescription">
-            <p>
-              <b>Hops: </b>
-              {beer.ingredients.hops.map((item, index) => (
-                <span key={index}>{item.name}; </span>
-              ))}
-            </p>
-            <p>
-              <b>Malt: </b>
-              {beer.ingredients.malt.map((item) => (
-                <span key={item.name}>{item.name}; </span>
-              ))}
-            </p>
-            <p>
-              <b>Yeast: </b>
-              <span>{beer.ingredients.yeast}</span>
-            </p>
+          <BeerIngredients svg={hops} name="Hops" values={beer.ingredients.hops} />
+          <BeerIngredients svg={malt} name="Malts" values={beer.ingredients.malt} />
+          <BeerIngredients svg={yeast} name="Yeast" values={beer.ingredients.yeast} />
 
+          <h4>DESCRIPTION</h4>
+
+          <div className="beerDescription">
             <p>{beer.description}</p>
-            <i>
-              <small>{beer.brewers_tips}</small>
-            </i>
+            <i>{beer.brewers_tips}</i>
             <p>
               <b>Food pairings: </b>
               {beer.food_pairing.map((item, index) => (

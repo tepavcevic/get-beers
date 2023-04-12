@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 
 import { BREWDOG_API, NUM_OF_ITEMS } from '../../constants/constants';
 import fetchFromParams from '../../services/fetchFromParams';
-import genericBottle from '../../assets/generic-bottle.png';
+import Card from './components/Card';
 import './styles.css';
 
 export default function Home() {
@@ -33,33 +33,7 @@ export default function Home() {
   return (
     <>
       <div className="cardGroup">
-        {beers !== null &&
-          beers.map((beer) => (
-            <div className="card" key={beer.id}>
-              <section className="imageSection">
-                {beer.image_url !== null ? (
-                  <img src={beer.image_url} className="cardImage" alt="beer image" />
-                ) : (
-                  <img
-                    src={genericBottle}
-                    className="cardImage"
-                    height="235px"
-                    max-width="auto"
-                    alt="beer image"
-                  />
-                )}
-              </section>
-
-              <div className="cardBody">
-                <h3 className="title">{beer.name}</h3>
-                <p className="tagline">{beer.tagline}</p>
-
-                <Link to={`/${beer.id}`} className="textLink">
-                  <button className="btn cardBtn">Know more</button>
-                </Link>
-              </div>
-            </div>
-          ))}
+        {beers !== null && beers.map((beer) => <Card beer={beer} key={beer.id} />)}
       </div>
 
       <ReactPaginate

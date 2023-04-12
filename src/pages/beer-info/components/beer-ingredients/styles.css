@@ -1,0 +1,19 @@
+.beerIngredients {
+  display: grid;
+  grid-template-columns: 31% 69%;
+  grid-auto-rows: auto;
+  gap: 30px;
+}
+
+.ingredientName {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0 0 0 50px;
+}
+
+.ingredientValue {
+  text-align: left;
+  align-self: center;
+  justify-self: start;
+}
