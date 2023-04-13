@@ -32,23 +32,30 @@ export default function Home() {
 
   return (
     <>
-      <div className="cardGroup">
-        {beers !== null && beers.map((beer) => <Card beer={beer} key={beer.id} />)}
-      </div>
+      {beers !== null && (
+        <>
+          <div className="cardGroup">
+            {beers.map((beer) => (
+              <Card beer={beer} key={beer.id} />
+            ))}
+          </div>
 
-      <ReactPaginate
-        pageCount={Math.ceil(NUM_OF_ITEMS / params.perPage)}
-        pageRangeDisplayed={2}
-        marginPagesDisplayed={2}
-        onPageChange={handlePageChange}
-        containerClassName={'container'}
-        previousLinkClassName={'page'}
-        breakClassName={'page'}
-        nextLinkClassName={'page'}
-        pageClassName={'page'}
-        disabledClassNae={'disabled'}
-        activeClassName={'active'}
-      />
+          <ReactPaginate
+            pageCount={Math.ceil(NUM_OF_ITEMS / params.perPage)}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={2}
+            initialPage={params.page - 1}
+            onPageChange={handlePageChange}
+            containerClassName={'container'}
+            previousLinkClassName={'page'}
+            breakClassName={'page'}
+            nextLinkClassName={'page'}
+            pageClassName={'page'}
+            disabledClassNae={'disabled'}
+            activeClassName={'active'}
+          />
+        </>
+      )}
     </>
   );
 }
