@@ -13,6 +13,7 @@ import yeast from '../../assets/yeast.svg';
 import abv from '../../assets/abv.svg';
 import ibu from '../../assets/ibu.svg';
 import './styles.css';
+import FoodPairings from './components/food-pairings/Index';
 
 export default function BeerInfo({ setErrorMessage }) {
   const [beer, setBeer] = useState(null);
@@ -56,12 +57,7 @@ export default function BeerInfo({ setErrorMessage }) {
           <div className="beerDescription">
             <p>{beer.description}</p>
             <i>{beer.brewers_tips}</i>
-            <p>
-              <b>Food pairings: </b>
-              {beer.food_pairing.map((item, index) => (
-                <span key={index}>{item}; </span>
-              ))}
-            </p>
+            <FoodPairings values={beer.food_pairing} />
           </div>
         </div>
       )}
