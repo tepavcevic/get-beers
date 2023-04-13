@@ -28,9 +28,17 @@
 }
 
 .cardImage {
-  overflow: visible;
+  overflow-y: visible;
   max-width: 100px;
   max-height: 235px;
   margin-top: 30px;
   filter: drop-shadow(13px 13px 17px #2525256c);
+}
+
+@media (max-width: 425px) {
+  .card {
+    width: 100%;
+    border-radius: none;
+    box-shadow: none;
+  }
 }

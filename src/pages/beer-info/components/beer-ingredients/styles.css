@@ -1,8 +1,9 @@
 .beerIngredients {
   display: grid;
-  grid-template-columns: 31% 69%;
+  grid-template-columns: 31% 66%;
   grid-auto-rows: auto;
   gap: 30px;
+  padding: 0 15px 0 0;
 }
 
 .ingredientName {
@@ -16,4 +17,26 @@
   text-align: left;
   align-self: center;
   justify-self: start;
+}
+
+@media (max-width: 425px) {
+  .ingredientName {
+    margin: 0 0 0 20px;
+  }
+}
+
+@media (max-width: 320px) {
+  .beerIngredients {
+    grid-template-columns: 100%;
+    grid-template-rows: 2;
+    gap: 8px;
+  }
+
+  .ingredientName {
+    margin: 0 0 0 10px;
+  }
+
+  .ingredientValue {
+    padding: 0 0 0 15px;
+  }
 }

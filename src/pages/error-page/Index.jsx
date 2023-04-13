@@ -13,7 +13,7 @@ export default function ErrorPage({ errorMessage }) {
       <p>Please, return back to safety</p>
       <div className="btnGroup">
         <Link to={-1}>
-          <button className="backBtn btn">Go back</button>
+          <button className="backBtn">Go back</button>
         </Link>
         <Link to={'/'}>
           <button className="btn">To homepage</button>

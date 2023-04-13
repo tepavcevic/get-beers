@@ -16,3 +16,18 @@
   align-self: center;
   justify-self: start;
 }
+
+@media (max-width: 425px) {
+  .propName {
+    margin: 0 0 0 20px;
+  }
+}
+
+@media (max-width: 320px) {
+  .beerProps {
+    grid-template-columns: 60% 40%;
+  }
+  .propName {
+    margin: 0 0 0 10px;
+  }
+}

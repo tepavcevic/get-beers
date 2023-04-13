@@ -1,7 +1,7 @@
 .beerInfoPage {
-  width: 600px;
+  max-width: 600px;
   padding: 30px 0 15px 15px;
-  margin: 0 auto 30px auto;
+  margin: 60px auto;
   border-radius: 5px;
   box-shadow: 0 0 6px lightgrey;
 }
@@ -20,4 +20,32 @@
 .beerDescription {
   text-align: left;
   padding: 0 50px 15px 50px;
+}
+
+@media (max-width: 425px) {
+  .beerInfoPage {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    border-radius: none;
+    box-shadow: none;
+  }
+
+  .beerDescription {
+    padding: 0 20px 15px 20px;
+  }
+}
+
+@media (max-width: 320px) {
+  .beerInfoPage {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    border-radius: none;
+    box-shadow: none;
+  }
+
+  .beerDescription {
+    padding: 0 10px 10px 10px;
+  }
 }
