@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 
+import useWindowResize from '../../hooks/useWindowResize';
 import { BREWDOG_API, NUM_OF_ITEMS } from '../../constants/constants';
-import fetchFromParams from '../../domain/fetchAPI/fetchFromParams';
-import genericBottle from '../../assets/generic-bottle.png';
+import fetchFromParams from '../../services/fetchFromParams';
+import Card from './components/Card.jsx';
+import prevPageIcon from '../../assets/prevPage.svg';
+import nextPageIcon from '../../assets/nextPage.svg';
+import './styles.css';
 
 export default function Home() {
   const [beers, setBeers] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const params = {
     page: searchParams.get('page') || 1,
-    perPage: searchParams.get('per_page') || 20,
+    perPage: searchParams.get('perPage') || 12,
   };
 
   const handlePageChange = (selectedObject) => {
@@ -29,50 +33,54 @@ export default function Home() {
     fetchFromParams(BREWDOG_API, queryParamOptions(params)).then(setBeers);
   }, [searchParams]);
 
+  const width = useWindowResize();
+
   return (
     <>
-      <br />
-
-      {beers !== null &&
-        beers.map((beer) => (
-          <div key={beer.id}>
-            <h4>{beer.id}</h4>
-            <h3>{beer.name.toUpperCase()}</h3>
-            <p>{beer.tagline.toUpperCase()}</p>
-            <i>
-              <small>{beer.brewers_tips}</small>
-            </i>
-
-            <br />
-            <br />
-            <br />
-
-            {beer.image_url !== null ? (
-              <img src={beer.image_url} height="235px" width="auto" alt="beer image" />
-            ) : (
-              <img src={genericBottle} height="235px" width="auto" alt="beer image" />
-            )}
-            <br />
-            <Link to={`/${beer.id}`}>See beer details</Link>
-            <br />
-            <hr />
-            <br />
+      {beers !== null && (
+        <>
+          <div className="cardGroup">
+            {beers.map((beer) => (
+              <Card beer={beer} key={beer.id} />
+            ))}
           </div>
-        ))}
 
-      <ReactPaginate
-        pageCount={Math.ceil(NUM_OF_ITEMS / params.perPage)}
-        pageRangeDisplayed={2}
-        marginPagesDisplayed={2}
-        onPageChange={handlePageChange}
-        containerClassName={'container'}
-        previousLinkClassName={'page'}
-        breakClassName={'page'}
-        nextLinkClassName={'page'}
-        pageClassName={'page'}
-        disabledClassNae={'disabled'}
-        activeClassName={'active'}
-      />
+          {width <= 425 && (
+            <ReactPaginate
+              pageCount={Math.ceil(NUM_OF_ITEMS / params.perPage)}
+              pageRangeDisplayed={0}
+              marginPagesDisplayed={1}
+              initialPage={params.page - 1}
+              onPageChange={handlePageChange}
+              containerClassName={'container'}
+              previousLinkClassName={'page'}
+              previousLabel={<img className="paginationChevron" src={prevPageIcon} alt="" />}
+              breakClassName={'page'}
+              nextLinkClassName={'page'}
+              nextLabel={<img className="paginationChevron" src={nextPageIcon} alt="" />}
+              pageClassName={'page'}
+              disabledClassName={'disabled'}
+              activeClassName={'active'}
+            />
+          )}
+          {width > 425 && (
+            <ReactPaginate
+              pageCount={Math.ceil(NUM_OF_ITEMS / params.perPage)}
+              pageRangeDisplayed={2}
+              marginPagesDisplayed={2}
+              initialPage={params.page - 1}
+              onPageChange={handlePageChange}
+              containerClassName={'container'}
+              previousLinkClassName={'page'}
+              breakClassName={'page'}
+              nextLinkClassName={'page'}
+              pageClassName={'page'}
+              disabledClassName={'disabled'}
+              activeClassName={'active'}
+            />
+          )}
+        </>
+      )}
     </>
   );
 }

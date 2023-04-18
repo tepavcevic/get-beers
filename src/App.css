@@ -1,60 +1,43 @@
-#root {
+.App {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
-h3 {
+.title {
+  font-size: 22px;
+  text-transform: uppercase;
   width: fit-content;
-  padding-bottom: 10px;
+  padding: 0 0 10px 0;
   border-bottom: 2px solid black;
-  margin: 10px auto;
+  margin: 20px auto;
 }
 
-img {
-  filter: drop-shadow(20px 15px 14px #bbbbbb);
+.tagline {
+  text-transform: uppercase;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  padding: 0;
-}
-
-.page {
-  padding: 10px;
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  margin-right: 10px;
+.btn {
+  font-weight: 500;
+  background-color: white;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border: thin solid black;
   cursor: pointer;
 }
 
-.disabled {
-  cursor: not-allowed;
+.cardBtn {
+  margin: 0 auto;
 }
 
-.active {
-  border: 2px solid #000;
-  font-weight: bold;
+.cardBtn:hover {
+  color: white;
+  background-color: #ff5140;
+  border: thin solid #ff5140;
 }
 
-.previous {
-  padding: 10px;
-  border-radius: 6px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-.break {
-  padding: 10px;
-}
-
-.next {
-  padding: 10px;
-  border-radius: 6px;
-  margin-right: 10px;
-  cursor: pointer;
+.textLink {
+  color: inherit;
+  text-decoration: inherit;
 }

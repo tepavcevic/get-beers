@@ -1,0 +1,17 @@
+.btnGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.backBtn {
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: white;
+  background-color: #ff5140;
+  padding: 12px 24px;
+  border: thin solid #ff5140;
+  cursor: pointer;
+}
