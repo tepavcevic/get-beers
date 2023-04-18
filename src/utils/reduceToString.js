@@ -1,10 +1,8 @@
 const reduceToString = (values) => {
   if (typeof values[0] !== 'string') {
-    const value = values.reduce((acc, curr) => `${acc}, ${curr.name}`, '');
-    return value.slice(2);
+    return values.map((value) => value.name).join(', ');
   } else {
-    const value = values.reduce((acc, curr) => `${acc}, ${curr}`, '');
-    return value.slice(2);
+    return values.join(', ');
   }
 };
 

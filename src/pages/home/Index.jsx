@@ -5,7 +5,7 @@ import ReactPaginate from 'react-paginate';
 import useWindowResize from '../../hooks/useWindowResize';
 import { BREWDOG_API, NUM_OF_ITEMS } from '../../constants/constants';
 import fetchFromParams from '../../services/fetchFromParams';
-import Card from './components/Card';
+import Card from './components/Card.jsx';
 import prevPageIcon from '../../assets/prevPage.svg';
 import nextPageIcon from '../../assets/nextPage.svg';
 import './styles.css';
@@ -35,8 +35,6 @@ export default function Home() {
 
   const width = useWindowResize();
 
-  console.log(width);
-
   return (
     <>
       {beers !== null && (
@@ -47,7 +45,7 @@ export default function Home() {
             ))}
           </div>
 
-          {width <= 425 ? (
+          {width <= 425 && (
             <ReactPaginate
               pageCount={Math.ceil(NUM_OF_ITEMS / params.perPage)}
               pageRangeDisplayed={0}
@@ -64,7 +62,8 @@ export default function Home() {
               disabledClassName={'disabled'}
               activeClassName={'active'}
             />
-          ) : (
+          )}
+          {width > 425 && (
             <ReactPaginate
               pageCount={Math.ceil(NUM_OF_ITEMS / params.perPage)}
               pageRangeDisplayed={2}
