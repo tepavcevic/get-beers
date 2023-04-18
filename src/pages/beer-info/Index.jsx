@@ -6,6 +6,7 @@ import { BREWDOG_API } from '../../constants/constants';
 import ImageSection from './components/image-section/Index';
 import BeerProps from './components/beer-props/Index';
 import BeerIngredients from './components/beer-ingredients/Index';
+import FoodPairings from './components/food-pairings/Index';
 import og from '../../assets/og.svg';
 import hops from '../../assets/hops.svg';
 import malt from '../../assets/malt.svg';
@@ -13,7 +14,6 @@ import yeast from '../../assets/yeast.svg';
 import abv from '../../assets/abv.svg';
 import ibu from '../../assets/ibu.svg';
 import './styles.css';
-import FoodPairings from './components/food-pairings/Index';
 
 export default function BeerInfo({ setErrorMessage }) {
   const [beer, setBeer] = useState(null);
